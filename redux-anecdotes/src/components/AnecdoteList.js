@@ -3,19 +3,28 @@ import { addVote } from "../reducers/anecdoteReducer"
 
 
 const AnecdoteList = (props) => {
-  const anecdotes = useSelector(state => state.sort(function(a,b) {
-    return b.votes - a.votes
-  }))
+  
+  // const anecdotes = useSelector(state => {
+  //   console.log(state.anecdotes)
+  // } )
+  // const anecdotes = useSelector(state => state.anecdotes)
+  const anecdotes = useSelector((state) => {
+    return state.anecdotes
+  })
   const dispatch = useDispatch()
 
   const vote = (id) => {
     dispatch(addVote(id))
   }
 
-
+  // need to use .slice to return shallow copy
+  // they didnt allow to directly sort....
   return (
     <div>
-      {anecdotes.map(anecdote =>
+      {anecdotes
+        .slice()
+        .sort((a,b) => b.votes - a.votes)
+        .map(anecdote =>
         <div key={anecdote.id}>
           <div>
             {anecdote.content}
