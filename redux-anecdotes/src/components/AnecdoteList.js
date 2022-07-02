@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { addVote } from "../reducers/anecdoteReducer"
+import { showNotification, hideNotification } from "../reducers/notificationReducer"
+
 
 
 const AnecdoteList = (props) => {
@@ -15,6 +17,13 @@ const AnecdoteList = (props) => {
 
   const vote = (id) => {
     dispatch(addVote(id))
+    const anecdote = anecdotes.find(anecdote => anecdote.id === id)
+
+    dispatch(showNotification(`you voted for '${anecdote.content}'`))
+    setTimeout(() => {
+      dispatch(hideNotification())
+    }, 5000)
+
   }
 
   // need to use .slice to return shallow copy
