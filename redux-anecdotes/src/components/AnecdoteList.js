@@ -11,7 +11,8 @@ const AnecdoteList = (props) => {
   // } )
   // const anecdotes = useSelector(state => state.anecdotes)
   const anecdotes = useSelector((state) => {
-    return state.anecdotes
+    return state.anecdotes.filter(anecdote =>
+       anecdote.content.toLowerCase().includes(state.filter.content.toLowerCase()))
   })
   const dispatch = useDispatch()
 
@@ -27,7 +28,7 @@ const AnecdoteList = (props) => {
   }
 
   // need to use .slice to return shallow copy
-  // they didnt allow to directly sort....
+  // they didnt allow to directly sort
   return (
     <div>
       {anecdotes
