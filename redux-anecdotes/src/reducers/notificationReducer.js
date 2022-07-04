@@ -9,6 +9,7 @@ const style = {
 const initialState = {
   message: null,
   style: null,
+  timeoutID : null
 }
 
 
@@ -22,20 +23,34 @@ const notificationSlice = createSlice({
         style: style,
       }
     },
+    setTimeoutID(state, action) {
+      console.log(action.payload)
+      return {
+        ...state, timeoutID: action.payload
+      }
+    },
+    clearTimeoutID(state, action) {
+      clearTimeout(state.timeoutID)
+      return {
+        ...state, timeoutID: ''
+      }
+    },
     hideNotification(state, action) {
       return initialState
     },
   },
 })
 
-export const { showNotification, hideNotification } = notificationSlice.actions
+export const { showNotification, hideNotification, setTimeoutID, clearTimeoutID } = notificationSlice.actions
 
 export const setNotification = (message, time) => {
   return async dispatch => {
+    dispatch(clearTimeoutID())
     dispatch(showNotification(message))
-    setTimeout(() => {
+    let id = setTimeout(() => {
       dispatch(hideNotification())
     }, time * 1000)
+    dispatch(setTimeoutID(id))
   }
 }
 export default notificationSlice.reducer
