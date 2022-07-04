@@ -11,8 +11,9 @@ const AnecdoteList = (props) => {
   // } )
   // const anecdotes = useSelector(state => state.anecdotes)
   const anecdotes = useSelector((state) => {
-    return state.anecdotes.filter(anecdote =>
-       anecdote.content.toLowerCase().includes(state.filter.content.toLowerCase()))
+    return state.anecdotes.filter(anecdote => {
+      // console.log(anecdote.content)
+      return anecdote.content.toLowerCase().includes(state.filter.content.toLowerCase())})
   })
   const dispatch = useDispatch()
 

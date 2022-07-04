@@ -7,8 +7,7 @@ import App from './App'
 import store from './store'
 // const store = createStore(reducer)
 
-console.log(store.getState())
-console.log(store.anecdotes)
+console.log('initial',store.getState())
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
