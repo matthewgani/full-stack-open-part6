@@ -1,16 +1,15 @@
-import { useDispatch } from "react-redux"
 import { setFilter } from "../reducers/filterReducer"
+import { connect } from "react-redux"
 
 const Filter = (props) => {
-
-  const dispatch = useDispatch()
 
   const changeFilter = (event) => {
     // event.preventDefault()
     // event.target.filter.value doesnt work, i think thats for forms like
     // anecdote form
     const content = event.target.value
-    dispatch(setFilter(content))
+    props.setFilter(content)
+    // dispatch(setFilter(content))
   }
   const style = {
     marginBottom: 10
@@ -24,5 +23,8 @@ const Filter = (props) => {
   )
 }
 
-
-export default Filter 
+const ConnectedFilter = connect(
+  null,
+  {setFilter}
+)(Filter)
+export default ConnectedFilter 
